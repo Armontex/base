@@ -1,4 +1,5 @@
 from typing import Any
+
 from sqlalchemy import MetaData, Table
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
 

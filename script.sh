@@ -1,3 +1,5 @@
+# chmod +x script.sh
+
 uv python pin 3.13
 uv init
 uv venv
@@ -11,34 +13,47 @@ rm .gitignore
 curl -L -o .gitignore \
     https://raw.githubusercontent.com/Armontex/base/refs/heads/main/python.gitignore
 
-
-
 touch .env.example
 
 touch AGENTS.md
 cat >> AGENTS.md <<'EOF'
 # Instructions
-
 EOF
 
 touch TODO.md
 cat >> TODO.md <<'EOF'
 # TODO
-
 EOF
 
 curl -L -o Dockerfile \
     https://raw.githubusercontent.com/Armontex/base/refs/heads/main/Dockerfile
 
-
+curl -L -o docker-compose.yml \
+    https://raw.githubusercontent.com/Armontex/base/refs/heads/main/docker-compose.yml
 
 curl -L -o .pre-commit-config.yaml \
     https://raw.githubusercontent.com/Armontex/base/refs/heads/main/.pre-commit-config.yaml
 
+git clone --depth 1 --filter=blob:none --sparse https://github.com/Armontex/base.git temp-base
+cd temp-base
+git sparse-checkout set src
+mv src ../
+cd ..
+rm -rf temp-base
+
 # ----------------- MIGRATIONS
 
 uv add alembic psycopg2-binary
-alembic init migrations
+uv run alembic init migrations
+
+rm migrations/env.py
+rm alembic.ini
+
+curl -L -o migrations/env.py \
+    https://raw.githubusercontent.com/Armontex/base/refs/heads/main/env.py
+
+curl -L -o alembic.ini \
+    https://raw.githubusercontent.com/Armontex/base/refs/heads/main/alembic.ini
 
 # ----------------- CONFIG
 
@@ -64,25 +79,18 @@ target-version = "py313"
 select = ["E", "F", "I", "B", "UP", "RUF"]
 EOF
 
-# ----------------- PRE-COMMIT
-
-uv add --dev pre-commit pyright commitizen
-uv run pre-commit autoupdate
-uv run pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
-uv run pre-commit run --all-files
-
-# ----------------- ARCHITECTURE
-
-
-
 # ----------------- DEPENDENCIES
 
 uv add fastapi uvicorn sqlalchemy asyncpg dependency-injector pydantic pydantic-settings structlog
 
 # ----------------- DEV
 
-uv add --dev hypothesis polyfactory pytest pytest-asyncio pytest-mock pytest-randomly testcontainers
+# ----------------- PRE-COMMIT
 
+uv add --dev pre-commit pyright commitizen
+uv run pre-commit autoupdate
+uv run pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
+uv run pre-commit run --all-files
 
 # ----------------- COMMIT
 

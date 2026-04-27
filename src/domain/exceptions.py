@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, ReadOnly, Required, Sequence, TypedDict
+from collections.abc import Sequence
+from typing import Any, ReadOnly, Required, TypedDict
 
 from .const import DOMAIN_ERROR_MESSAGE, DOMAIN_VALIDATION_ERROR_MESSAGE
 

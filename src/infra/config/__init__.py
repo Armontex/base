@@ -1,11 +1,10 @@
-from .settings import get_settings, Settings
-from .db import DbSettings
 from .app import AppSettings
-
+from .db import DbSettings
+from .settings import Settings, get_settings
 
 __all__ = [
-    "get_settings",
-    "Settings",
-    "DbSettings",
     "AppSettings",
+    "DbSettings",
+    "Settings",
+    "get_settings",
 ]

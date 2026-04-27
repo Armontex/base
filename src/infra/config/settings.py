@@ -3,9 +3,8 @@ from functools import lru_cache
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from .db import DbSettings
 from .app import AppSettings
-
+from .db import DbSettings
 
 
 class Settings(BaseSettings):
@@ -13,9 +12,10 @@ class Settings(BaseSettings):
         env_nested_delimiter="__",
         extra="ignore",
     )
-    
+
     app: AppSettings = Field(default_factory=AppSettings)
     db: DbSettings = Field(default_factory=DbSettings)
+
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:

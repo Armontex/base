@@ -1,4 +1,5 @@
 import logging
+
 import structlog
 
 from src.infra.config import AppSettings
