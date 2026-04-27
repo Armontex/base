@@ -1,0 +1,2 @@
+DOMAIN_ERROR_MESSAGE = "Domain error"
+DOMAIN_VALIDATION_ERROR_MESSAGE = "Validation error"
