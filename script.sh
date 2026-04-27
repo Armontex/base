@@ -6,6 +6,8 @@ uv venv
 
 # ----------------- FILES
 
+echo >> README.md
+
 rm main.py
 
 rm .gitignore
@@ -95,4 +97,4 @@ uv run pre-commit run --all-files
 # ----------------- COMMIT
 
 git add .
-git commit -m "init commit"
+git commit -m "feat: init commit"
