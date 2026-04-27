@@ -11,13 +11,26 @@ rm .gitignore
 curl -L -o .gitignore \
     https://raw.githubusercontent.com/Armontex/base/refs/heads/main/python.gitignore
 
-touch docker-compose.yml
+
+
 touch .env.example
+
 touch AGENTS.md
+cat >> AGENTS.md <<'EOF'
+# Instructions
+
+EOF
+
 touch TODO.md
+cat >> TODO.md <<'EOF'
+# TODO
+
+EOF
 
 curl -L -o Dockerfile \
     https://raw.githubusercontent.com/Armontex/base/refs/heads/main/Dockerfile
+
+
 
 curl -L -o .pre-commit-config.yaml \
     https://raw.githubusercontent.com/Armontex/base/refs/heads/main/.pre-commit-config.yaml

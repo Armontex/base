@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:18
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB__USER:-taxi}
+      POSTGRES_PASSWORD: ${DB__PASSWORD:-taxi}
+      POSTGRES_DB: ${DB__NAME:-taxi}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB__USER:-taxi} -d ${DB__NAME:-taxi}"]
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')",
+        ]
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+    stop_grace_period: 1s
+
+volumes:
+  postgres_data:
