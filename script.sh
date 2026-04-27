@@ -95,7 +95,7 @@ uv run pre-commit autoupdate
 uv run pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
 uv run pre-commit run --all-files
 
-# ----------------- COMMIT
+# ----------------- GIT
 
 git branch -M main
 git add .
