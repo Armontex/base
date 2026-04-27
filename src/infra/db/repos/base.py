@@ -1,4 +1,3 @@
-from abc import ABC
 from typing import Any
 
 from sqlalchemy.orm import DeclarativeBase
@@ -6,7 +5,7 @@ from sqlalchemy.orm import DeclarativeBase
 from src.infra.db.session import LimitedSession
 
 
-class BaseRepository[T: DeclarativeBase](ABC):
+class BaseRepository[T: DeclarativeBase]:
     def __init__(self, model: type[T], session: LimitedSession) -> None:
         self._session = session
         self._model = model

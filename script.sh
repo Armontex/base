@@ -1,12 +1,10 @@
-# chmod +x script.sh
+# bash script.sh
 
 uv python pin 3.13
 uv init
 uv venv
 
 # ----------------- FILES
-
-echo >> README.md
 
 rm main.py
 
@@ -57,6 +55,8 @@ curl -L -o migrations/env.py \
 curl -L -o alembic.ini \
     https://raw.githubusercontent.com/Armontex/base/refs/heads/main/alembic.ini
 
+echo >> migrations/README
+
 # ----------------- CONFIG
 
 
@@ -79,6 +79,7 @@ target-version = "py313"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "RUF"]
+ignore = ["RUF001"]
 EOF
 
 # ----------------- DEPENDENCIES

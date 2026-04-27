@@ -54,7 +54,10 @@ def create_app() -> FastAPI:
         "/health",
         response_model=HealthResponse,
         summary="Проверка доступности приложения",
-        description="Возвращает простой health response для проверки, что API запущено и принимает запросы.",
+        description=(
+            "Возвращает простой health response для проверки,"
+            "что API запущено и принимает запросы."
+        ),
     )
     async def health() -> HealthResponse:
         return HealthResponse()
