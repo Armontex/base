@@ -97,5 +97,8 @@ uv run pre-commit run --all-files
 
 # ----------------- COMMIT
 
+git branch -M main
 git add .
 git commit -m "feat: init commit"
+git checkout -b dev
+git checkout -b pre-dev
